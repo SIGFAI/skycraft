@@ -1,6 +1,6 @@
 {
   "id": "sigf/skycraft",
-  "version": "0.1.2",
+  "version": "0.1.201",
   "name": "SkyCraft",
   "tagline": "Play Skyrim as a Minecraft player: Minecraft physics, inventory, blocks and combat inside Skyrim's world (SKSE plugin + Fabric mod).",
   "kind": "passthrough",
@@ -59,7 +59,7 @@
           "contents": [
             {
               "path": "SKSE/Plugins/SkyCraft.dll",
-              "sha256": "72b0d231f4632cf2268514eece90e9b7adaa2b59c648fcf14aaf55a6513eefa3"
+              "sha256": "05dab4e9860a4bfd9d7ceac06e8d940c943ebc62200c62a783c649412f7f8e33"
             },
             {
               "path": "SKSE/Plugins/SkyCraft.ini",
@@ -71,16 +71,16 @@
             },
             {
               "path": "SKSE/Plugins/SkyCraft/SOURCE.txt",
-              "sha256": "81f337daae0d6b06d8b1cdebfa1c2a54c1f4ecfc3c288543803c4e1b9803ab6f"
+              "sha256": "b355965a7fdcd2b226f663e9394dba11a3ba1fd9f6394ac98b3e894f24519d0b"
             },
             {
               "path": "SKSE/Plugins/SkyCraft/THIRD-PARTY-NOTICES.md",
               "sha256": "c37067d07a37ccd7ab6534cc0de1cf7c7f26d1435cc26aa4851b25cbb1c4e3cd"
             }
           ],
-          "url": "https://github.com/SIGFAI/skycraft/releases/download/v0.1.2/skycraft-skyrim.zip",
-          "sha256": "9d40a0a715719111d8b0691b39052578f508936aa18c3d4217bc6412a2c84a41",
-          "size": 1284979
+          "url": "https://github.com/SIGFAI/skycraft/releases/download/v0.1.201/skycraft-skyrim.zip",
+          "sha256": "360b56b1abc24daa953189dd7605853c5c6211c226efc6708797d23085e05ec4",
+          "size": 1286081
         }
       ]
     },
@@ -89,9 +89,9 @@
       "strategy": "mrpack",
       "pack": {
         "src": "skycraft.mrpack",
-        "url": "https://github.com/SIGFAI/skycraft/releases/download/v0.1.2/skycraft.mrpack",
-        "sha256": "03f99abdd025852ef25b7f798041f00b0bb0421e1fc6cd28356ff295bf16d531",
-        "size": 235671
+        "url": "https://github.com/SIGFAI/skycraft/releases/download/v0.1.201/skycraft.mrpack",
+        "sha256": "27b691bd8b49009f0cd874ef12b353ae6aa3427c56d6b099332da32d2b8e2663",
+        "size": 235672
       },
       "jvm_args": [
         "-Dskycraft.startHidden=true"
@@ -111,15 +111,15 @@
   "files": [
     {
       "name": "skycraft-skyrim.zip",
-      "url": "https://github.com/SIGFAI/skycraft/releases/download/v0.1.2/skycraft-skyrim.zip",
-      "sha256": "9d40a0a715719111d8b0691b39052578f508936aa18c3d4217bc6412a2c84a41",
-      "size": 1284979
+      "url": "https://github.com/SIGFAI/skycraft/releases/download/v0.1.201/skycraft-skyrim.zip",
+      "sha256": "360b56b1abc24daa953189dd7605853c5c6211c226efc6708797d23085e05ec4",
+      "size": 1286081
     },
     {
       "name": "skycraft.mrpack",
-      "url": "https://github.com/SIGFAI/skycraft/releases/download/v0.1.2/skycraft.mrpack",
-      "sha256": "03f99abdd025852ef25b7f798041f00b0bb0421e1fc6cd28356ff295bf16d531",
-      "size": 235671
+      "url": "https://github.com/SIGFAI/skycraft/releases/download/v0.1.201/skycraft.mrpack",
+      "sha256": "27b691bd8b49009f0cd874ef12b353ae6aa3427c56d6b099332da32d2b8e2663",
+      "size": 235672
     }
   ],
   "source": {
@@ -132,11 +132,88 @@
     "linked": [
       {
         "name": "CommonLibSSE-NG",
-        "repo": "https://github.com/alandtse/CommonLibVR",
+        "repo": "https://github.com/alandtse/CommonLibSSE-NG",
         "commit": "d61bca4de789428aa7d98a770b1323ddf1bb855c",
         "license": "GPL-3.0-or-later WITH Modding Exception"
+      },
+      {
+        "name": "fmt",
+        "repo": "https://github.com/fmtlib/fmt",
+        "commit": "1be298e1bd68957e4cd352e1f676f00e07dcfb57",
+        "version": "12.2.0",
+        "port": "fmt@12.2.0",
+        "license": "MIT"
+      },
+      {
+        "name": "spdlog",
+        "repo": "https://github.com/gabime/spdlog",
+        "commit": "79524ddd08a4ec981b7fea76afd08ee05f83755d",
+        "version": "v1.17.0",
+        "port": "spdlog@1.17.0",
+        "license": "MIT"
+      },
+      {
+        "name": "DirectXTK",
+        "repo": "https://github.com/microsoft/DirectXTK",
+        "commit": "5a8f5d01cc1328e6451b588617c9985fa5a2a8ab",
+        "version": "may2026",
+        "port": "directxtk@2026-05-07",
+        "license": "MIT"
+      },
+      {
+        "name": "DirectXMath",
+        "repo": "https://github.com/microsoft/DirectXMath",
+        "commit": "93e6399d6d15e1e57f80b5cea04d5a8eb892d693",
+        "version": "jun2026",
+        "port": "directxmath@2026-06-12",
+        "license": "MIT"
+      },
+      {
+        "name": "nlohmann-json",
+        "repo": "https://github.com/nlohmann/json",
+        "commit": "55f93686c01528224f448c19128836e7df245f72",
+        "version": "v3.12.0",
+        "port": "nlohmann-json@3.12.0",
+        "license": "MIT"
+      },
+      {
+        "name": "rapidcsv",
+        "repo": "https://github.com/d99kris/rapidcsv",
+        "commit": "cbd8a0a937b249cc07e2db3bfa9cd2cc1689708f",
+        "version": "v9.07",
+        "port": "rapidcsv@9.07",
+        "license": "BSD-3-Clause"
+      },
+      {
+        "name": "simpleini",
+        "repo": "https://github.com/brofield/simpleini",
+        "commit": "fd6db69efc40a687bf4ef81486b54066e34992dd",
+        "version": "v4.27",
+        "port": "simpleini@4.27",
+        "license": "MIT"
+      },
+      {
+        "name": "toml11",
+        "repo": "https://github.com/ToruNiina/toml11",
+        "commit": "be08ba2be2a964edcdb3d3e3ea8d100abc26f286",
+        "version": "v4.4.0",
+        "port": "toml11@4.4.0",
+        "license": "MIT"
+      },
+      {
+        "name": "xbyak",
+        "repo": "https://github.com/herumi/xbyak",
+        "commit": "12557954c68a780563f9ab9fc24a3a156c96cba1",
+        "version": "v7.28",
+        "port": "xbyak@7.28",
+        "license": "BSD-3-Clause"
       }
-    ]
+    ],
+    "rebuilt": {
+      "file": "SkyCraft.dll",
+      "sha256": "05dab4e9860a4bfd9d7ceac06e8d940c943ebc62200c62a783c649412f7f8e33",
+      "toolchain": "Visual Studio Build Tools 2026 18.10.3 with the MSVC 14.50.35717 toolset (cl 19.50.35739), Windows SDK 10.0.26100.0, CMake 4.4.3, vcpkg tool 2026-09-26, git 2.56.0, Windows Server 2025"
+    }
   },
   "media": {},
   "built_by": {
@@ -147,7 +224,7 @@
     "packaged_by": "SIGF"
   },
   "idea_by": "chasmlol",
-  "built_at": "2026-10-05T15:37:21.386Z",
+  "built_at": "2026-10-05T17:36:21.150Z",
   "notes": [
     "Skyrim Special Edition on the Anniversary Edition runtime (1.6.x / 1.7.x, tested on 1.7.104) with SKSE64 and the Address Library (All in one, AE). Not SE 1.5.97, not VR.",
     "Start Minecraft first, then Skyrim through skse64_loader.exe. They link through shared memory; Minecraft drives the player, Skyrim draws everything.",
