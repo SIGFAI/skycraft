@@ -1,0 +1,16 @@
+{
+  "jar": { "file": "skycraft-0.1.2+sigf.1.jar", "sha256": "4b49d1510034da68d86061c1714e66b7fb8ddef256d1043494119ef6b9901f09", "size": 249143, "rebuild_sha256": "4b49d1510034da68d86061c1714e66b7fb8ddef256d1043494119ef6b9901f09" },
+  "source": { "repo": "https://github.com/SIGFAI/skycraft", "commit": "d76cdda3aa9f22b5d412d547c752981a272f38fa", "project": "fabric/" },
+  "command": "cd fabric && ./gradlew --no-daemon --no-configuration-cache -Pversion=0.1.2+sigf.1 build",
+  "toolchain": {
+    "java": "OpenJDK Runtime Environment Corretto-25.0.4.8.1 (build 25.0.4.1+8-LTS)",
+    "javac": "javac 25.0.4.1",
+    "corretto_rpm": "java-25-amazon-corretto-devel-25.0.4+8-1.amzn2023.1.x86_64",
+    "gradle": "9.7.1",
+    "loom": "fabric-loom-1.18.2.jar",
+    "git": "git version 2.50.1",
+    "os": "Amazon Linux 2023.12.20260930 x86_64"
+  },
+  "upstream_check": {"commit":"f22ba8ce9e65aa378c7c4cb603e8598706f19b04","version":"0.1.2","sha256":"531e542e4c149b977a3d748351461d6756893c4554a08670a9b433de6e3e6cef","release_sha256":"ea429c73dcec49d39b6a0bb9b17ad08a6b0290a39a96ccf6f6c07d581cf992d9","identical":false},
+  "built_at": "2026-10-05T19:28:53Z"
+}

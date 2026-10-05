@@ -65,6 +65,15 @@ path; it is vendored because it is part of the recursive checkout upstream's bui
 
 ## The release binaries
 
+The release `v0.1.202` (SIGF's revision 2 of SkyCraft 0.1.2) is `v0.1.201` with one change: `skycraft.mrpack` holds
+`skycraft-0.1.2+sigf.1.jar`, **built by SIGF from this repository** at commit `d76cdda` (upstream's `fabric/` plus the
+SIGF patch below, "SIGF patch: dedicated servers") with `sigf/build-fusion-jar.sh`, sha256
+`4b49d1510034da68d86061c1714e66b7fb8ddef256d1043494119ef6b9901f09`, 249,143 bytes, instead of upstream's
+`skycraft-fabric-0.1.2.jar`; its build record is `sigf/jar-build-info.json` (two clean builds, identical). Every class
+in it is byte-identical to upstream's jar except `SkyLink` and its nested classes. The pack also tells hosted servers
+to load the mod (`server.load_on_server` in `mashup.json`) and keeps e4mc client-only (`env.server: "unsupported"`).
+`skycraft-skyrim.zip` is unchanged from `v0.1.201` except its `SOURCE.txt`, which now names the jar's build too.
+
 The release `v0.1.201` of this repository (SIGF's revision 1 of SkyCraft 0.1.2) has two assets:
 
 - `skycraft-skyrim.zip`: unpacked into Skyrim's `Data` folder. It holds `SKSE/Plugins/SkyCraft.dll`, **built by SIGF
