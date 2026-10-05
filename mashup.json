@@ -1,6 +1,6 @@
 {
   "id": "sigf/skycraft",
-  "version": "0.1.201",
+  "version": "0.1.202",
   "name": "SkyCraft",
   "tagline": "Play Skyrim as a Minecraft player: Minecraft physics, inventory, blocks and combat inside Skyrim's world (SKSE plugin + Fabric mod).",
   "kind": "passthrough",
@@ -71,16 +71,16 @@
             },
             {
               "path": "SKSE/Plugins/SkyCraft/SOURCE.txt",
-              "sha256": "b355965a7fdcd2b226f663e9394dba11a3ba1fd9f6394ac98b3e894f24519d0b"
+              "sha256": "a519242d2f172051619265ed7d29063e28248acc2209b422a3524cce0a73f436"
             },
             {
               "path": "SKSE/Plugins/SkyCraft/THIRD-PARTY-NOTICES.md",
               "sha256": "c37067d07a37ccd7ab6534cc0de1cf7c7f26d1435cc26aa4851b25cbb1c4e3cd"
             }
           ],
-          "url": "https://github.com/SIGFAI/skycraft/releases/download/v0.1.201/skycraft-skyrim.zip",
-          "sha256": "360b56b1abc24daa953189dd7605853c5c6211c226efc6708797d23085e05ec4",
-          "size": 1286081
+          "url": "https://github.com/SIGFAI/skycraft/releases/download/v0.1.202/skycraft-skyrim.zip",
+          "sha256": "5c840164c129040666e9ac4f174fbde09055bd7cf3276f96a8602351596bd673",
+          "size": 1286338
         }
       ]
     },
@@ -89,9 +89,9 @@
       "strategy": "mrpack",
       "pack": {
         "src": "skycraft.mrpack",
-        "url": "https://github.com/SIGFAI/skycraft/releases/download/v0.1.201/skycraft.mrpack",
-        "sha256": "27b691bd8b49009f0cd874ef12b353ae6aa3427c56d6b099332da32d2b8e2663",
-        "size": 235672
+        "url": "https://github.com/SIGFAI/skycraft/releases/download/v0.1.202/skycraft.mrpack",
+        "sha256": "7421bfd8cec657027491215ad9fb051d29e60e31e2801e1a3c2001a2ead45fc6",
+        "size": 236789
       },
       "jvm_args": [
         "-Dskycraft.startHidden=true"
@@ -111,15 +111,15 @@
   "files": [
     {
       "name": "skycraft-skyrim.zip",
-      "url": "https://github.com/SIGFAI/skycraft/releases/download/v0.1.201/skycraft-skyrim.zip",
-      "sha256": "360b56b1abc24daa953189dd7605853c5c6211c226efc6708797d23085e05ec4",
-      "size": 1286081
+      "url": "https://github.com/SIGFAI/skycraft/releases/download/v0.1.202/skycraft-skyrim.zip",
+      "sha256": "5c840164c129040666e9ac4f174fbde09055bd7cf3276f96a8602351596bd673",
+      "size": 1286338
     },
     {
       "name": "skycraft.mrpack",
-      "url": "https://github.com/SIGFAI/skycraft/releases/download/v0.1.201/skycraft.mrpack",
-      "sha256": "27b691bd8b49009f0cd874ef12b353ae6aa3427c56d6b099332da32d2b8e2663",
-      "size": 235672
+      "url": "https://github.com/SIGFAI/skycraft/releases/download/v0.1.202/skycraft.mrpack",
+      "sha256": "7421bfd8cec657027491215ad9fb051d29e60e31e2801e1a3c2001a2ead45fc6",
+      "size": 236789
     }
   ],
   "source": {
@@ -213,9 +213,27 @@
       "file": "SkyCraft.dll",
       "sha256": "05dab4e9860a4bfd9d7ceac06e8d940c943ebc62200c62a783c649412f7f8e33",
       "toolchain": "Visual Studio Build Tools 2026 18.10.3 with the MSVC 14.50.35717 toolset (cl 19.50.35739), Windows SDK 10.0.26100.0, CMake 4.4.3, vcpkg tool 2026-09-26, git 2.56.0, Windows Server 2025"
+    },
+    "rebuilt_jar": {
+      "file": "skycraft-0.1.2+sigf.1.jar",
+      "sha256": "4b49d1510034da68d86061c1714e66b7fb8ddef256d1043494119ef6b9901f09",
+      "source": "https://github.com/SIGFAI/skycraft/tree/d76cdda3aa9f22b5d412d547c752981a272f38fa",
+      "patch": "SIGF patch for dedicated servers: SkyLink binds kernel32 only on the Windows client (SIGF.md)",
+      "toolchain": "Amazon Corretto 25.0.4 (javac 25.0.4.1), Gradle 9.7.1 (wrapper), Fabric Loom 1.18.2, Amazon Linux 2023 x86_64"
     }
   },
   "media": {},
+  "server": {
+    "game": "minecraft",
+    "mc": "26.3",
+    "loader": "fabric@0.19.5",
+    "ram_gb": 2,
+    "max_players": 10,
+    "pack": "skycraft.mrpack",
+    "load_on_server": [
+      "skycraft"
+    ]
+  },
   "built_by": {
     "author": "chasmlol",
     "authors": [
@@ -224,7 +242,7 @@
     "packaged_by": "SIGF"
   },
   "idea_by": "chasmlol",
-  "built_at": "2026-10-05T17:36:21.150Z",
+  "built_at": "2026-10-05T19:40:06.656Z",
   "notes": [
     "Skyrim Special Edition on the Anniversary Edition runtime (1.6.x / 1.7.x, tested on 1.7.104) with SKSE64 and the Address Library (All in one, AE). Not SE 1.5.97, not VR.",
     "Start Minecraft first, then Skyrim through skse64_loader.exe. They link through shared memory; Minecraft drives the player, Skyrim draws everything.",
