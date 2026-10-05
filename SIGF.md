@@ -14,7 +14,8 @@ This repository is a mirror kept by SIGFAI so the SIGF app can install SkyCraft 
 3. SIGF's build script and build record for the plugin, under `sigf/`;
 4. `mashup.json`, the SIGF app recipe, and the releases, whose assets are what the app downloads.
 
-The upstream files are not modified. Upstream's `.gitmodules` is kept as it was, for reference: the submodule paths it
+The upstream files are not modified, except one SIGF patch to the Fabric mod (`fabric/`), so it runs on a dedicated
+server (below, "SIGF patch: dedicated servers"). Upstream's `.gitmodules` is kept as it was, for reference: the submodule paths it
 lists are now ordinary folders.
 
 ## Licenses
@@ -114,6 +115,30 @@ own steps (README, "Building from source") are, from this tree: `git clone https
 then in `skse\` `cmake --preset default` and `cmake --build --preset release`; `sigf/build-skycraft.md` lists the pins
 and flags SIGF adds. The same toolchain in the same folder (`D:\skycraft`) gives the same bytes. The Fabric jar builds
 with JDK 25: `gradlew build` (see upstream's README).
+
+## SIGF patch: dedicated servers
+
+SIGF hosts free Minecraft servers for SIGF app lobbies (Linux, Fabric dedicated server). SkyCraft's Fabric mod has a
+server half (the `main` entrypoint: entities, combat, network payloads, common mixins), but upstream's
+`dev.skycraft.link.SkyLink` bound its Windows calls (kernel32 `OpenFileMappingW`, `MapViewOfFile`, `GetTickCount64`,
+`QueryPerformanceCounter`, `CreateMutexW`, and the `GetLastError` capture layout) in its **static initializer**, so the
+first server tick that asked `SkyLink.active()` crashed a Linux server (`SkyLink.<clinit>`, SkyLink.java:31: the capture
+layout has no `GetLastError` outside Windows).
+
+The patch (one file, `fabric/src/main/java/dev/skycraft/link/SkyLink.java`, marked `SIGF patch`):
+
+- the kernel32 bindings move into a nested holder class `SkyLink.Win`, bound on first use instead of when `SkyLink`
+  loads;
+- `SkyLink.NATIVE` = the physical client (`FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT`) on
+  Windows (`os.name`). Without it, `announceRunning()` and `poll()` do nothing (no shared memory is ever opened, so
+  `active()` stays false and every reader returns "no link"), `tickCount()` / `qpc()` / `qpcFrequency()` use
+  `System.nanoTime()`; the natives are never touched.
+- On the Windows client nothing changes: the same calls, in the same order, from the same places (the bindings are
+  made at the first `announceRunning()`, in the client entrypoint, instead of at the class's first use).
+
+A dedicated server, on any OS, then loads the mod and runs its server logic without the link (the link only ever
+exists between a player's own Minecraft and Skyrim on that PC). Built with `sigf/build-fusion-jar.sh` (Linux, JDK 25,
+upstream's `gradlew build` plus `-Pversion=0.1.2+sigf.1` and `--no-configuration-cache`; two clean builds, byte-identical).
 
 ## Why this mirror exists
 

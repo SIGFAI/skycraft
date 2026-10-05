@@ -12,6 +12,8 @@ import java.lang.foreign.SymbolLookup;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.VarHandle;
 import java.nio.charset.StandardCharsets;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.loader.api.FabricLoader;
 
 /**
  * The Minecraft end of the shared-memory link. Skyrim owns the mapping; we open it when it
@@ -25,35 +27,45 @@ public final class SkyLink {
 	private static final VarHandle INT = JAVA_INT.varHandle();
 	private static final VarHandle LONG = JAVA_LONG.varHandle();
 
-	private static final MethodHandle OPEN_FILE_MAPPING;
-	// OpenFileMappingW's GetLastError, captured right after the call (the JVM may change it later).
-	private static final java.lang.foreign.StructLayout CALL_STATE = Linker.Option.captureStateLayout();
-	private static final VarHandle LAST_ERROR = CALL_STATE.varHandle(java.lang.foreign.MemoryLayout.PathElement.groupElement("GetLastError"));
-	private static final MemorySegment OPEN_STATE = Arena.global().allocate(CALL_STATE);
 	private static int lastOpenError = -1;
-	private static final MethodHandle MAP_VIEW_OF_FILE;
-	private static final MethodHandle GET_TICK_COUNT64;
-	private static final MethodHandle GET_CURRENT_PROCESS_ID;
-	private static final MethodHandle QUERY_PERFORMANCE_COUNTER;
-	private static final MethodHandle QUERY_PERFORMANCE_FREQUENCY;
-	private static final MethodHandle CREATE_MUTEX;
 	private static MemorySegment runningMutex;
 	private static final MemorySegment QPC_OUT = Arena.global().allocate(JAVA_LONG);
 
-	static {
-		Linker linker = Linker.nativeLinker();
-		SymbolLookup k32 = SymbolLookup.libraryLookup("kernel32", Arena.global());
-		OPEN_FILE_MAPPING = linker.downcallHandle(
-			k32.find("OpenFileMappingW").orElseThrow(), FunctionDescriptor.of(ADDRESS, JAVA_INT, JAVA_INT, ADDRESS), Linker.Option.captureCallState("GetLastError")
-		);
-		MAP_VIEW_OF_FILE = linker.downcallHandle(
-			k32.find("MapViewOfFile").orElseThrow(), FunctionDescriptor.of(ADDRESS, ADDRESS, JAVA_INT, JAVA_INT, JAVA_INT, JAVA_LONG)
-		);
-		GET_TICK_COUNT64 = linker.downcallHandle(k32.find("GetTickCount64").orElseThrow(), FunctionDescriptor.of(JAVA_LONG));
-		GET_CURRENT_PROCESS_ID = linker.downcallHandle(k32.find("GetCurrentProcessId").orElseThrow(), FunctionDescriptor.of(JAVA_INT));
-		QUERY_PERFORMANCE_COUNTER = linker.downcallHandle(k32.find("QueryPerformanceCounter").orElseThrow(), FunctionDescriptor.of(JAVA_INT, ADDRESS));
-		QUERY_PERFORMANCE_FREQUENCY = linker.downcallHandle(k32.find("QueryPerformanceFrequency").orElseThrow(), FunctionDescriptor.of(JAVA_INT, ADDRESS));
-		CREATE_MUTEX = linker.downcallHandle(k32.find("CreateMutexW").orElseThrow(), FunctionDescriptor.of(ADDRESS, ADDRESS, JAVA_INT, ADDRESS));
+	// SIGF patch: the link is Windows shared memory between Minecraft and Skyrim on one PC. Only the
+	// physical client on Windows touches kernel32; a dedicated server (any OS) never loads the natives
+	// below (they used to be bound in this class's static initializer, which crashed Linux servers).
+	private static final boolean NATIVE = FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT
+		&& System.getProperty("os.name", "").startsWith("Windows");
+
+	/** The kernel32 bindings, bound on first use (only when {@link #NATIVE}). */
+	private static final class Win {
+		static final MethodHandle OPEN_FILE_MAPPING;
+		// OpenFileMappingW's GetLastError, captured right after the call (the JVM may change it later).
+		static final java.lang.foreign.StructLayout CALL_STATE = Linker.Option.captureStateLayout();
+		static final VarHandle LAST_ERROR = CALL_STATE.varHandle(java.lang.foreign.MemoryLayout.PathElement.groupElement("GetLastError"));
+		static final MemorySegment OPEN_STATE = Arena.global().allocate(CALL_STATE);
+		static final MethodHandle MAP_VIEW_OF_FILE;
+		static final MethodHandle GET_TICK_COUNT64;
+		static final MethodHandle GET_CURRENT_PROCESS_ID;
+		static final MethodHandle QUERY_PERFORMANCE_COUNTER;
+		static final MethodHandle QUERY_PERFORMANCE_FREQUENCY;
+		static final MethodHandle CREATE_MUTEX;
+
+		static {
+			Linker linker = Linker.nativeLinker();
+			SymbolLookup k32 = SymbolLookup.libraryLookup("kernel32", Arena.global());
+			OPEN_FILE_MAPPING = linker.downcallHandle(
+				k32.find("OpenFileMappingW").orElseThrow(), FunctionDescriptor.of(ADDRESS, JAVA_INT, JAVA_INT, ADDRESS), Linker.Option.captureCallState("GetLastError")
+			);
+			MAP_VIEW_OF_FILE = linker.downcallHandle(
+				k32.find("MapViewOfFile").orElseThrow(), FunctionDescriptor.of(ADDRESS, ADDRESS, JAVA_INT, JAVA_INT, JAVA_INT, JAVA_LONG)
+			);
+			GET_TICK_COUNT64 = linker.downcallHandle(k32.find("GetTickCount64").orElseThrow(), FunctionDescriptor.of(JAVA_LONG));
+			GET_CURRENT_PROCESS_ID = linker.downcallHandle(k32.find("GetCurrentProcessId").orElseThrow(), FunctionDescriptor.of(JAVA_INT));
+			QUERY_PERFORMANCE_COUNTER = linker.downcallHandle(k32.find("QueryPerformanceCounter").orElseThrow(), FunctionDescriptor.of(JAVA_INT, ADDRESS));
+			QUERY_PERFORMANCE_FREQUENCY = linker.downcallHandle(k32.find("QueryPerformanceFrequency").orElseThrow(), FunctionDescriptor.of(JAVA_INT, ADDRESS));
+			CREATE_MUTEX = linker.downcallHandle(k32.find("CreateMutexW").orElseThrow(), FunctionDescriptor.of(ADDRESS, ADDRESS, JAVA_INT, ADDRESS));
+		}
 	}
 
 	/**
@@ -61,12 +73,12 @@ public final class SkyLink {
 	 * SKSE plugin knows not to start another one (even before the two have linked up).
 	 */
 	public static synchronized void announceRunning() {
-		if (runningMutex != null) {
+		if (!NATIVE || runningMutex != null) {
 			return;
 		}
 		try (Arena arena = Arena.ofConfined()) {
 			MemorySegment name = arena.allocateFrom(MAPPING_NAME + "_minecraft", StandardCharsets.UTF_16LE);
-			runningMutex = (MemorySegment) CREATE_MUTEX.invokeExact(MemorySegment.NULL, 0, name);
+			runningMutex = (MemorySegment) Win.CREATE_MUTEX.invokeExact(MemorySegment.NULL, 0, name);
 		} catch (Throwable t) {
 			SkyCraft.LOG.warn("SkyCraft: couldn't create the running-Minecraft mutex", t);
 		}
@@ -107,6 +119,9 @@ public final class SkyLink {
 
 	/** Try to open the mapping at most once a second. Call regularly from the render thread. */
 	public static void poll() {
+		if (!NATIVE) {
+			return;
+		}
 		if (shm != null) {
 			LONG.setRelease(shm, OFF_HEADER + H_MC_HEARTBEAT, tickCount());
 			int pid = shm.get(JAVA_INT, OFF_HEADER + H_SKYRIM_PID);
@@ -126,11 +141,11 @@ public final class SkyLink {
 		lastOpenAttempt = now;
 		try (Arena arena = Arena.ofConfined()) {
 			MemorySegment name = arena.allocateFrom(MAPPING_NAME, StandardCharsets.UTF_16LE);
-			MemorySegment handle = (MemorySegment) OPEN_FILE_MAPPING.invokeExact(OPEN_STATE, FILE_MAP_ALL_ACCESS, 0, name);
+			MemorySegment handle = (MemorySegment) Win.OPEN_FILE_MAPPING.invokeExact(Win.OPEN_STATE, FILE_MAP_ALL_ACCESS, 0, name);
 			if (handle.address() == 0) {
 				// Say why, once per reason: 2 is "Skyrim hasn't made it yet" (normal while it loads),
 				// 5 is "not allowed" (a Skyrim run as administrator, before 0.1.1).
-				int error = (int) LAST_ERROR.get(OPEN_STATE, 0L);
+				int error = (int) Win.LAST_ERROR.get(Win.OPEN_STATE, 0L);
 				if (error != lastOpenError) {
 					lastOpenError = error;
 					SkyCraft.LOG.info("SkyCraft: can't open Skyrim's shared memory yet (Windows error {}{})", error,
@@ -138,7 +153,7 @@ public final class SkyLink {
 				}
 				return;
 			}
-			MemorySegment view = (MemorySegment) MAP_VIEW_OF_FILE.invokeExact(handle, FILE_MAP_ALL_ACCESS, 0, 0, 0L);
+			MemorySegment view = (MemorySegment) Win.MAP_VIEW_OF_FILE.invokeExact(handle, FILE_MAP_ALL_ACCESS, 0, 0, 0L);
 			if (view.address() == 0) {
 				SkyCraft.LOG.error("SkyCraft: MapViewOfFile failed");
 				return;
@@ -150,7 +165,7 @@ public final class SkyLink {
 				SkyCraft.LOG.error("SkyCraft: protocol mismatch (magic {} version {}); expected version {}", Integer.toHexString(magic), version, VERSION);
 				return;
 			}
-			seg.set(JAVA_INT, OFF_HEADER + H_MC_PID, (int) GET_CURRENT_PROCESS_ID.invokeExact());
+			seg.set(JAVA_INT, OFF_HEADER + H_MC_PID, (int) Win.GET_CURRENT_PROCESS_ID.invokeExact());
 			LONG.setRelease(seg, OFF_HEADER + H_MC_HEARTBEAT, tickCount());
 			skyrimPid = seg.get(JAVA_INT, OFF_HEADER + H_SKYRIM_PID);
 			generation++;
@@ -163,8 +178,11 @@ public final class SkyLink {
 
 	/** QueryPerformanceCounter: the same clock Skyrim reads, so tick timestamps line up across processes. */
 	public static synchronized long qpc() {
+		if (!NATIVE) {
+			return System.nanoTime();
+		}
 		try {
-			int ok = (int) QUERY_PERFORMANCE_COUNTER.invokeExact(QPC_OUT);
+			int ok = (int) Win.QUERY_PERFORMANCE_COUNTER.invokeExact(QPC_OUT);
 			return QPC_OUT.get(JAVA_LONG, 0);
 		} catch (Throwable t) {
 			throw new RuntimeException(t);
@@ -173,8 +191,11 @@ public final class SkyLink {
 
 	/** Ticks per second of {@link #qpc()}. */
 	public static synchronized long qpcFrequency() {
+		if (!NATIVE) {
+			return 1_000_000_000L;
+		}
 		try {
-			int ok = (int) QUERY_PERFORMANCE_FREQUENCY.invokeExact(QPC_OUT);
+			int ok = (int) Win.QUERY_PERFORMANCE_FREQUENCY.invokeExact(QPC_OUT);
 			return QPC_OUT.get(JAVA_LONG, 0);
 		} catch (Throwable t) {
 			throw new RuntimeException(t);
@@ -182,8 +203,11 @@ public final class SkyLink {
 	}
 
 	public static long tickCount() {
+		if (!NATIVE) {
+			return System.nanoTime() / 1_000_000L;
+		}
 		try {
-			return (long) GET_TICK_COUNT64.invokeExact();
+			return (long) Win.GET_TICK_COUNT64.invokeExact();
 		} catch (Throwable t) {
 			throw new RuntimeException(t);
 		}
