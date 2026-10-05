@@ -3,6 +3,12 @@
   "version": "0.1.202",
   "name": "SkyCraft",
   "tagline": "Play Skyrim as a Minecraft player: Minecraft physics, inventory, blocks and combat inside Skyrim's world (SKSE plugin + Fabric mod).",
+  "how_to_play": [
+    "Play Skyrim as a Minecraft player: Minecraft drives your character's movement, inventory, HUD, blocks and combat.",
+    "Use Minecraft's keys as usual (E inventory, F5 camera, T chat, Shift sneak); O opens Minecraft's pause menu.",
+    "Skyrim keys still work: G activate (doors, talk, containers), Esc menu, J journal, M map, H wait, F9 quickload.",
+    "Press Play: Minecraft starts hidden, then Skyrim. Load a save made after Helgen (or start with Alternate Start)."
+  ],
   "kind": "passthrough",
   "games": [
     {
