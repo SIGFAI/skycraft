@@ -1,0 +1,194 @@
+{
+  "dll": {
+    "file": "SkyCraft.dll",
+    "sha256": "05dab4e9860a4bfd9d7ceac06e8d940c943ebc62200c62a783c649412f7f8e33",
+    "size": 4037120,
+    "rebuild_sha256": "05dab4e9860a4bfd9d7ceac06e8d940c943ebc62200c62a783c649412f7f8e33"
+  },
+  "sources": {
+    "SkyCraft": {
+      "url": "https://github.com/chasmlol/SkyCraft",
+      "commit": "bfcaf178524b92c2cdeb88e4ce0f13ef9ded6f32",
+      "dirty": false
+    },
+    "CommonLibSSE-NG": {
+      "url": "https://github.com/alandtse/CommonLibVR.git",
+      "commit": "d61bca4de789428aa7d98a770b1323ddf1bb855c",
+      "dirty": false,
+      "note": "upstream .gitmodules URL; the repository is now github.com/alandtse/CommonLibSSE-NG"
+    },
+    "openvr": {
+      "url": "https://github.com/ValveSoftware/openvr.git",
+      "commit": "60eb187801956ad277f1cae6680e3a410ee0873b",
+      "dirty": false,
+      "note": "CommonLibSSE-NG submodule; include path only (ENABLE_SKYRIM_VR off), not linked"
+    },
+    "vcpkg": {
+      "url": "https://github.com/microsoft/vcpkg",
+      "commit": "4a1c77189c64dae7afd478333a64d1e604d5dc91",
+      "dirty": false
+    }
+  },
+  "vcpkg": {
+    "commit": "4a1c77189c64dae7afd478333a64d1e604d5dc91",
+    "triplet": "x64-windows-static-md",
+    "tool": "vcpkg package management program version 2026-09-26-51bf87ca6e9bf3e622d84ff323bd202ab1ca0c0b",
+    "tool_sha256": "2a4ae1467b9e797964c60c919d057b9e5dc1ec03f4b9632c1150026db25201f2",
+    "manifest": "vcpkg.json",
+    "packages": {
+      "vcpkg-cmake-config:x64-windows": {
+        "version": "2026-07-21",
+        "port_version": 0,
+        "abi": "1ce3ec39d11f02e363402d580af4ae621036decb38e72036c4d51a492d8711de"
+      },
+      "vcpkg-cmake:x64-windows": {
+        "version": "2025-08-07",
+        "port_version": 0,
+        "abi": "429a4d78fb5b0d086d890b7521326f2aa4d65dc24cb450e58a99aea3ae41f79f"
+      },
+      "directxmath:x64-windows-static-md": {
+        "version": "2026-06-12",
+        "port_version": 0,
+        "abi": "2547a732955a68433541e2cc54d27b35a4fa0e780e30e102b2c130c4be79e405"
+      },
+      "directxtk:x64-windows-static-md": {
+        "version": "2026-05-07",
+        "port_version": 1,
+        "abi": "f23c75605f7cf6a4b77760e9dcc7dd0c084a483fe897504b0540fd424395f008"
+      },
+      "fmt:x64-windows-static-md": {
+        "version": "12.2.0",
+        "port_version": 1,
+        "abi": "8f5fa6ce2291cfaa8ad6d105d23ac70890083c7b0e2a5f87a0f70396ba0b95b8"
+      },
+      "nlohmann-json:x64-windows-static-md": {
+        "version": "3.12.0",
+        "port_version": 2,
+        "abi": "5a3f5edfafe21319a1687f7f45e9966390314caea227755839c690c046bc7edd"
+      },
+      "rapidcsv:x64-windows-static-md": {
+        "version": "9.07",
+        "port_version": 0,
+        "abi": "ee0a77eabe3bab476a01ea1e22ec2bed079cf0db3af4db0a8f89a57e6fa8a8da"
+      },
+      "simpleini:x64-windows-static-md": {
+        "version": "4.27",
+        "port_version": 0,
+        "abi": "c747220245dfbf30b6533cf06891f43507e0e16750daf22e17aec6042b80d85d"
+      },
+      "spdlog:x64-windows-static-md": {
+        "version": "1.17.0",
+        "port_version": 1,
+        "abi": "0ca7b7b032f446dd4fd544de6d618b560a58848b7a44a94b3c0125ac5da4182a"
+      },
+      "toml11:x64-windows-static-md": {
+        "version": "4.4.0",
+        "port_version": 0,
+        "abi": "46de70d57c4c285d1ee79c817f97ad5aa0d7da9c2b72a0b98f657a39f3bdbc34"
+      },
+      "xbyak:x64-windows-static-md": {
+        "version": "7.28",
+        "port_version": 0,
+        "abi": "a30e25c3ba60bfd1a5352e85169426230a182e755192166dff742e0de72b8a0d"
+      }
+    },
+    "downloads": {
+      "library_sources": [
+        {
+          "file": "brofield-simpleini-v4.27.tar.gz",
+          "sha512": "f2ba16c76f88d8e299429c401c6076417299c98b0976c25c4fc07ebe563828da93a533e1a2cc4b7078c090416fd02ee4b095313d43b1060dee398b1d31ac7517"
+        },
+        {
+          "file": "d99kris-rapidcsv-v9.07.tar.gz",
+          "sha512": "5fb55ecac8d3f55e6a81ee60b1f72bad1bc6d4ac51b45abacc14b3974b7cc9dd6f015db8b234d112cac1d625db542c603fff17a33765aa91aa43b9567aef696b"
+        },
+        {
+          "file": "fmt-backport-4813.patch",
+          "sha512": "afda8fdfcdcb4b0dd5df4d4dae96a57a85fb9c4b65d0b49d51258f0913d4aed93ed146ebf96ed7b277490b1dde6c7117f43332013071441a96c3147520de8368"
+        },
+        {
+          "file": "fmtlib-fmt-12.2.0.tar.gz",
+          "sha512": "5ac2ba0f54a484999ed5407d82b77aad170cea49a267decd2c0eedadf3b14413e2a83fcc8e9ca9c16640595e019b8636e160f72314d8be50653324e82ac745eb"
+        },
+        {
+          "file": "gabime-spdlog-v1.17.0.tar.gz",
+          "sha512": "8df117055d19ff21c9c9951881c7bdf27cc0866ea3a4aa0614b2c3939cedceab94ac9abaa63dc4312b51562b27d708cb2f014c68c603fd1c1051d3ed5c1c3087"
+        },
+        {
+          "file": "herumi-xbyak-v7.28.tar.gz",
+          "sha512": "443c5c0f14182e46b07af18ee5bd631a0557c37c6b92f6b19a3100dcc8f7b8baa100b7f142fc182cb8d74537bd69459f1065b39078a8a8d02f247133c9c46be4"
+        },
+        {
+          "file": "Microsoft-DirectXMath-jun2026.tar.gz",
+          "sha512": "47003d3c223e0b99f99346f0f6f971df1cab319dc975479b12a8b353022de603293761e1da78e811b824e649ec935de07b54c0abff308d4b0fcea05b7732e494"
+        },
+        {
+          "file": "Microsoft-DirectXTK-may2026.tar.gz",
+          "sha512": "9306774b06f52b4c37938fe4b3a10df8c7a85652188a25dc25e60ae9ff6fbf9d2cf920b114de3fc3945c564054cbb166cc45fca073021129e75ce282a51636e7"
+        },
+        {
+          "file": "nlohmann-json-v3.12.0.tar.gz",
+          "sha512": "6cc1e86261f8fac21cc17a33da3b6b3c3cd5c116755651642af3c9e99bb3538fd42c1bd50397a77c8fb6821bc62d90e6b91bcdde77a78f58f2416c62fc53b97d"
+        },
+        {
+          "file": "spdlog-backport-3541.patch",
+          "sha512": "9b5340c93b9a869ae7479395e23672288fc3b4347fc1e9a4535b580a6ade1dadd985e939fb5fbb820d262f0c2153599a88dd572443b62dab3498da8b327ee034"
+        },
+        {
+          "file": "spdlog-backport-3543.patch",
+          "sha512": "ada7e63920a48fa1641bf4929b6172c4e8570e2610534caf9fd1a769d00d304b7c5907987420f85989295a939aa1e75cf18c54bbf3ccc6ccad594a24aba2e8b9"
+        },
+        {
+          "file": "ToruNiina-toml11-v4.4.0.tar.gz",
+          "sha512": "1779c6b21a0a4000f49e5bf3a8b1288989622eb4a4e365cd6c49d9a8cc859ad18514b94dca63bd8a49f554aa7387882a1a089fadde267cebdf2a8aa49aacd11b"
+        }
+      ],
+      "tools": [
+        {
+          "file": "7z2603-x64.7z",
+          "sha512": "02b22bfb9bad0567e61590815f25b444bc228f084d4b3b3a270b7bbf6a51946003a44b28cbd19dda6b686047b8f2979c828506abaa445bd96c8ca86654e914b7"
+        },
+        {
+          "file": "7z2603-x64.7z.exe",
+          "sha512": "50025bab628b69f8eb35a590900093814e540ce7ffef8c676a1198e2d2a3f1dcdc44f04f92c28ca89bf6ee869fad3710786e14073c7db36281e8f7a4c495ea7f"
+        },
+        {
+          "file": "msys2-mingw-w64-x86_64-pkgconf-1~2.5.1-1-any.pkg.tar.zst",
+          "sha512": "2e604ccb004e2afa151e870112c95cab7106e43ee3cdfe67ac8815f3ec6754ccbc25211732eec8ac9ffe491071c63c9af18c8fa2bbfd6521a1b467bb11b1da03"
+        },
+        {
+          "file": "msys2-msys2-runtime-3.6.5-1-x86_64.pkg.tar.zst",
+          "sha512": "974dbe29e35b04a4a4f5ffbfed1327702c5eb34cfbfafd45e00df3553e66ca3a4a92cf8b69dbb42b8e3c2ef034281ea73888c03c271ad28ce12fee32ce1bbf3d"
+        },
+        {
+          "file": "PowerShell-7.6.6-win-x64.zip",
+          "sha512": "d95037cfa3ea9df5287a409680bb2cf122451760e9b07e3d9b61cda2155262326911d24643cb1018da6fd899a9c5bd1f30055ca7b74f785b72b6dd99ef3a54fa"
+        }
+      ],
+      "note": "library_sources: what vcpkg compiled (GitHub tag archives + backport patches, sha512 as pinned in the portfiles); tools: helper tools vcpkg fetched (PowerShell 7, 7-Zip, msys2 pkgconf), pinned by scripts/vcpkg-tools.json, not linked"
+    },
+    "overlay_triplet": "x64-windows-static-md.cmake"
+  },
+  "toolchain": {
+    "visual_studio": "Visual Studio Build Tools 2026 18.10.3",
+    "msvc": "14.50.35717",
+    "msvc_installed": [
+      "14.50.35717",
+      "14.51.36231"
+    ],
+    "cl": "Microsoft (R) C/C++ Optimizing Compiler Version 19.50.35739 for x64",
+    "windows_sdk": "10.0.26100.0",
+    "cmake": "cmake version 4.4.3",
+    "git": "git version 2.56.0.windows.1",
+    "os": "Microsoft Windows Server 2025 Datacenter 10.0.26100.0"
+  },
+  "commands": [
+    "cmake --preset default -DVCPKG_MANIFEST_DIR=<manifest> -DVCPKG_OVERLAY_TRIPLETS=<triplets> -DCOMMONLIB_PREBUILT=OFF -DSKYCRAFT_DEPLOY_DIR= -T version=14.50",
+    "cmake --build --preset release",
+    "environment: CXXFLAGS=/Brepro LDFLAGS=/Brepro"
+  ],
+  "root": "D:\\skycraft",
+  "built_at": "2026-10-05T17:07:14.3732376Z",
+  "machine": "temporary AWS EC2 c6i.2xlarge (i-0a2c81b95e6ab3d41, terminated), Windows_Server-2025-English-Full-Base-2026.09.17 (ami-0366b6e53cea2815d), eu-west-1, via SSM Run Command (SYSTEM); D: = subst of C:\\skybuild\\d",
+  "script": "orchestrator/scripts/build-skycraft.ps1 -InstallTools -VerifyRepro"
+}

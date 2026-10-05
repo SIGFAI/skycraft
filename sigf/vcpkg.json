@@ -1,0 +1,74 @@
+{
+  "$comment": "SkyCraft v0.1.2 skse/vcpkg.json dependencies, pinned by SIGF to microsoft/vcpkg 4a1c77189c64dae7afd478333a64d1e604d5dc91 (build-skycraft.ps1)",
+  "name": "skycraft-skse",
+  "version-string": "0.1.2",
+  "builtin-baseline": "4a1c77189c64dae7afd478333a64d1e604d5dc91",
+  "dependencies": [
+    "directxmath",
+    "directxtk",
+    "fmt",
+    "nlohmann-json",
+    "rapidcsv",
+    "simpleini",
+    "spdlog",
+    "toml11",
+    "xbyak"
+  ],
+  "overrides": [
+    {
+      "name": "directxmath",
+      "version": "2026-06-12",
+      "port-version": 0
+    },
+    {
+      "name": "directxtk",
+      "version": "2026-05-07",
+      "port-version": 1
+    },
+    {
+      "name": "fmt",
+      "version": "12.2.0",
+      "port-version": 1
+    },
+    {
+      "name": "nlohmann-json",
+      "version": "3.12.0",
+      "port-version": 2
+    },
+    {
+      "name": "rapidcsv",
+      "version": "9.07",
+      "port-version": 0
+    },
+    {
+      "name": "simpleini",
+      "version": "4.27",
+      "port-version": 0
+    },
+    {
+      "name": "spdlog",
+      "version": "1.17.0",
+      "port-version": 1
+    },
+    {
+      "name": "toml11",
+      "version": "4.4.0",
+      "port-version": 0
+    },
+    {
+      "name": "xbyak",
+      "version": "7.28",
+      "port-version": 0
+    },
+    {
+      "name": "vcpkg-cmake",
+      "version": "2025-08-07",
+      "port-version": 0
+    },
+    {
+      "name": "vcpkg-cmake-config",
+      "version": "2026-07-21",
+      "port-version": 0
+    }
+  ]
+}

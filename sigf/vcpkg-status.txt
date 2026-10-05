@@ -1,0 +1,115 @@
+Package: vcpkg-cmake-config
+Version: 2026-07-21
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 1ce3ec39d11f02e363402d580af4ae621036decb38e72036c4d51a492d8711de
+Status: install ok installed
+
+Package: vcpkg-cmake
+Version: 2025-08-07
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 429a4d78fb5b0d086d890b7521326f2aa4d65dc24cb450e58a99aea3ae41f79f
+Status: install ok installed
+
+Package: directxmath
+Version: 2026-06-12
+Depends: vcpkg-cmake:x64-windows, vcpkg-cmake-config:x64-windows
+Architecture: x64-windows-static-md
+Multi-Arch: same
+Abi: 2547a732955a68433541e2cc54d27b35a4fa0e780e30e102b2c130c4be79e405
+Description: DirectXMath SIMD C++ math library
+Status: install ok installed
+
+Package: directxtk
+Version: 2026-05-07
+Port-Version: 1
+Depends: directxmath, vcpkg-cmake:x64-windows, vcpkg-cmake-config:x64-windows
+Architecture: x64-windows-static-md
+Multi-Arch: same
+Abi: f23c75605f7cf6a4b77760e9dcc7dd0c084a483fe897504b0540fd424395f008
+Description: A collection of helper classes for writing DirectX 11.x code in C++.
+Status: install ok installed
+
+Package: fmt
+Version: 12.2.0
+Port-Version: 1
+Depends: vcpkg-cmake:x64-windows, vcpkg-cmake-config:x64-windows
+Architecture: x64-windows-static-md
+Multi-Arch: same
+Abi: 8f5fa6ce2291cfaa8ad6d105d23ac70890083c7b0e2a5f87a0f70396ba0b95b8
+Description: {fmt} is an open-source formatting library providing a fast and safe alternative to C stdio and C++ iostreams.
+Status: install ok installed
+
+Package: nlohmann-json
+Version: 3.12.0
+Port-Version: 2
+Depends: vcpkg-cmake:x64-windows, vcpkg-cmake-config:x64-windows
+Architecture: x64-windows-static-md
+Multi-Arch: same
+Abi: 5a3f5edfafe21319a1687f7f45e9966390314caea227755839c690c046bc7edd
+Description: JSON for Modern C++
+Status: install ok installed
+
+Package: rapidcsv
+Version: 9.07
+Depends: vcpkg-cmake:x64-windows, vcpkg-cmake-config:x64-windows
+Architecture: x64-windows-static-md
+Multi-Arch: same
+Abi: ee0a77eabe3bab476a01ea1e22ec2bed079cf0db3af4db0a8f89a57e6fa8a8da
+Description: Rapidcsv is a C++ header-only library for CSV parsing.
+Status: install ok installed
+
+Package: simpleini
+Version: 4.27
+Depends: vcpkg-cmake:x64-windows, vcpkg-cmake-config:x64-windows
+Architecture: x64-windows-static-md
+Multi-Arch: same
+Abi: c747220245dfbf30b6533cf06891f43507e0e16750daf22e17aec6042b80d85d
+Description: Cross-platform C++ library providing a simple API to read and write INI-style configuration files
+Status: install ok installed
+
+Package: spdlog
+Version: 1.17.0
+Port-Version: 1
+Depends: vcpkg-cmake:x64-windows, vcpkg-cmake-config:x64-windows
+Architecture: x64-windows-static-md
+Multi-Arch: same
+Abi: 0ca7b7b032f446dd4fd544de6d618b560a58848b7a44a94b3c0125ac5da4182a
+Description: Very fast, header-only/compiled, C++ logging library.
+Default-Features: fmt, tz-offset
+Status: install ok installed
+
+Package: spdlog
+Feature: fmt
+Depends: fmt
+Architecture: x64-windows-static-md
+Multi-Arch: same
+Description: Use fmt library
+Status: install ok installed
+
+Package: spdlog
+Feature: tz-offset
+Architecture: x64-windows-static-md
+Multi-Arch: same
+Description: Omit %z timezone offset (use on platforms without tm_gmtoff)
+Status: install ok installed
+
+Package: toml11
+Version: 4.4.0
+Depends: vcpkg-cmake:x64-windows, vcpkg-cmake-config:x64-windows
+Architecture: x64-windows-static-md
+Multi-Arch: same
+Abi: 46de70d57c4c285d1ee79c817f97ad5aa0d7da9c2b72a0b98f657a39f3bdbc34
+Description: A C++11 header-only toml parser/encoder depending only on C++ standard library.
+Status: install ok installed
+
+Package: xbyak
+Version: 7.28
+Depends: vcpkg-cmake:x64-windows, vcpkg-cmake-config:x64-windows
+Architecture: x64-windows-static-md
+Multi-Arch: same
+Abi: a30e25c3ba60bfd1a5352e85169426230a182e755192166dff742e0de72b8a0d
+Description: Xbyak is a JIT assembler for x86(IA-32)/x64(AMD64, x86-64).
+Status: install ok installed
+
