@@ -1,0 +1,157 @@
+{
+  "id": "sigf/skycraft",
+  "version": "0.1.2",
+  "name": "SkyCraft",
+  "tagline": "Play Skyrim as a Minecraft player: Minecraft physics, inventory, blocks and combat inside Skyrim's world (SKSE plugin + Fabric mod).",
+  "kind": "passthrough",
+  "games": [
+    {
+      "game": "skyrim",
+      "role": "host",
+      "engine": "Skyrim Special Edition, AE runtime + SKSE64 plugin (C++, CommonLibSSE-NG)",
+      "apps": {
+        "steam": "489830"
+      },
+      "runtime": "1.6.x / 1.7.x (Anniversary Edition runtime), tested on 1.7.104; not SE 1.5.97, not VR"
+    },
+    {
+      "game": "minecraft",
+      "role": "guest",
+      "label": "Minecraft",
+      "mc": "26.3",
+      "loader": "fabric@0.19.5",
+      "java": "25"
+    }
+  ],
+  "requires": [
+    {
+      "id": "skse64",
+      "page": "https://skse.silverlock.org/",
+      "license": "no rehosting (skse64_readme.txt: link to skse.silverlock.org)",
+      "note": "the build for your Skyrim runtime; start Skyrim with skse64_loader.exe"
+    },
+    {
+      "id": "address-library-skse",
+      "page": "https://www.nexusmods.com/skyrimspecialedition/mods/32444",
+      "license": "Nexus Mods download only",
+      "note": "the \"All in one (Anniversary Edition)\" file"
+    },
+    {
+      "id": "fabric-loader",
+      "version": "0.19.5"
+    },
+    {
+      "id": "alternate-start",
+      "page": "https://www.nexusmods.com/skyrimspecialedition/mods/272",
+      "optional": true,
+      "note": "recommended by upstream: the Helgen opening may get stuck"
+    }
+  ],
+  "install": [
+    {
+      "game": "skyrim",
+      "strategy": "game-dir-snapshot",
+      "files": [
+        {
+          "src": "skycraft-skyrim.zip",
+          "dst": "{game}/Data",
+          "unpack": true,
+          "contents": [
+            {
+              "path": "SKSE/Plugins/SkyCraft.dll",
+              "sha256": "72b0d231f4632cf2268514eece90e9b7adaa2b59c648fcf14aaf55a6513eefa3"
+            },
+            {
+              "path": "SKSE/Plugins/SkyCraft.ini",
+              "sha256": "15ea7b37042b386cd0b805a29a35a3cd31c3e455b29822d60bacb8574fc5622a"
+            },
+            {
+              "path": "SKSE/Plugins/SkyCraft/LICENSE.txt",
+              "sha256": "ddd86554d7d479eccf870d1cfeecd9480cfabe8025762776b6d784d185b21dd9"
+            },
+            {
+              "path": "SKSE/Plugins/SkyCraft/SOURCE.txt",
+              "sha256": "81f337daae0d6b06d8b1cdebfa1c2a54c1f4ecfc3c288543803c4e1b9803ab6f"
+            },
+            {
+              "path": "SKSE/Plugins/SkyCraft/THIRD-PARTY-NOTICES.md",
+              "sha256": "c37067d07a37ccd7ab6534cc0de1cf7c7f26d1435cc26aa4851b25cbb1c4e3cd"
+            }
+          ],
+          "url": "https://github.com/SIGFAI/skycraft/releases/download/v0.1.2/skycraft-skyrim.zip",
+          "sha256": "9d40a0a715719111d8b0691b39052578f508936aa18c3d4217bc6412a2c84a41",
+          "size": 1284979
+        }
+      ]
+    },
+    {
+      "game": "minecraft",
+      "strategy": "mrpack",
+      "pack": {
+        "src": "skycraft.mrpack",
+        "url": "https://github.com/SIGFAI/skycraft/releases/download/v0.1.2/skycraft.mrpack",
+        "sha256": "03f99abdd025852ef25b7f798041f00b0bb0421e1fc6cd28356ff295bf16d531",
+        "size": 235671
+      },
+      "jvm_args": [
+        "-Dskycraft.startHidden=true"
+      ]
+    }
+  ],
+  "launch": [
+    {
+      "game": "minecraft"
+    },
+    {
+      "game": "skyrim",
+      "args": [],
+      "exe": "skse64_loader.exe"
+    }
+  ],
+  "files": [
+    {
+      "name": "skycraft-skyrim.zip",
+      "url": "https://github.com/SIGFAI/skycraft/releases/download/v0.1.2/skycraft-skyrim.zip",
+      "sha256": "9d40a0a715719111d8b0691b39052578f508936aa18c3d4217bc6412a2c84a41",
+      "size": 1284979
+    },
+    {
+      "name": "skycraft.mrpack",
+      "url": "https://github.com/SIGFAI/skycraft/releases/download/v0.1.2/skycraft.mrpack",
+      "sha256": "03f99abdd025852ef25b7f798041f00b0bb0421e1fc6cd28356ff295bf16d531",
+      "size": 235671
+    }
+  ],
+  "source": {
+    "repo": "https://github.com/chasmlol/SkyCraft",
+    "license": "MIT AND GPL-3.0-or-later",
+    "upstream_license": "MIT",
+    "tag": "v0.1.2",
+    "commit": "bfcaf178524b92c2cdeb88e4ce0f13ef9ded6f32",
+    "hosted": "https://github.com/SIGFAI/skycraft",
+    "linked": [
+      {
+        "name": "CommonLibSSE-NG",
+        "repo": "https://github.com/alandtse/CommonLibVR",
+        "commit": "d61bca4de789428aa7d98a770b1323ddf1bb855c",
+        "license": "GPL-3.0-or-later WITH Modding Exception"
+      }
+    ]
+  },
+  "media": {},
+  "built_by": {
+    "author": "chasmlol",
+    "authors": [
+      "chasmlol"
+    ],
+    "packaged_by": "SIGF"
+  },
+  "idea_by": "chasmlol",
+  "built_at": "2026-10-05T15:37:21.386Z",
+  "notes": [
+    "Skyrim Special Edition on the Anniversary Edition runtime (1.6.x / 1.7.x, tested on 1.7.104) with SKSE64 and the Address Library (All in one, AE). Not SE 1.5.97, not VR.",
+    "Start Minecraft first, then Skyrim through skse64_loader.exe. They link through shared memory; Minecraft drives the player, Skyrim draws everything.",
+    "The SIGF app starts the Minecraft side first as its own Prism instance, then the game through its script extender loader (Steam is opened first when it is not running).",
+    "Play from a save made after Helgen, or with Alternate Start. Mods that take over the camera (Improved Camera SE, SmoothCam, True Directional Movement) conflict."
+  ]
+}
