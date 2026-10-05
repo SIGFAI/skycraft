@@ -250,9 +250,6 @@
   "idea_by": "chasmlol",
   "built_at": "2026-10-05T19:40:06.656Z",
   "notes": [
-    "How it works: you play Skyrim as a Minecraft player: Minecraft runs hidden in the background and drives your character (movement, inventory, HUD, blocks, combat) while Skyrim draws everything in its own world.",
-    "Press Play: Minecraft starts first with no window, then Skyrim through skse64_loader.exe. Load a save made after Helgen (or start with Alternate Start). If Skyrim had to wait, a corner message says \"SkyCraft: Minecraft is ready.\"",
-    "Keys: Minecraft's keys as usual (E inventory, F5 camera, T chat, Shift sneak). Still Skyrim's: G activate (doors, talk, containers), Esc menu, J journal, M map, H wait, F9 quickload, ~ console. O opens Minecraft's pause/options menu.",
     "Install these yourself: Skyrim Special Edition on the Anniversary Edition runtime (1.6.x / 1.7.x, tested on 1.7.104; not 1.5.97, not VR), SKSE64 for your runtime, Address Library (All in one, AE). You also need Minecraft: Java Edition and about 3 GB of extra RAM.",
     "Skyrim's inventory, magic, shouts and perks can't be opened while Minecraft drives you, and there is no switch back to plain Skyrim (closing Minecraft hands control back). Camera mods (Improved Camera SE, SmoothCam, True Directional Movement) conflict.",
     "Early and experimental upstream: back up your saves. Friends with SkyCraft can share your Minecraft world: O, Open to LAN, then they type /join <link>. Report bugs to the author (chasmlol) on the upstream issue tracker."
